@@ -1,6 +1,7 @@
 package com.sparta.lunchrecommender.global.config;
 
 import com.sparta.lunchrecommender.domain.user.repository.UserRepository;
+import com.sparta.lunchrecommender.global.filter.CustomServletWrappingFilter;
 import com.sparta.lunchrecommender.global.security.JwtAuthenticationFilter;
 import com.sparta.lunchrecommender.global.security.JwtAuthorizationFilter;
 import com.sparta.lunchrecommender.global.security.UserDetailsServiceImpl;
@@ -79,6 +80,8 @@ public class WebSecurityConfig {
         // 필터 관리
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomServletWrappingFilter(), UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
