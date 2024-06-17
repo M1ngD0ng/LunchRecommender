@@ -86,11 +86,11 @@ public class PostController {
     @PostMapping("/post")
     public ResponseEntity<HttpResponseDto> createPost(@RequestBody PostCreateRequestDto requestDto,
                                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        postService.createPost(requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("게시물 작성이 완료되었습니다.")
+                        .data(postService.createPost(requestDto, userDetails.getUser()))
                         .build()
         );
     }
@@ -99,11 +99,11 @@ public class PostController {
     public ResponseEntity<HttpResponseDto> updatePost(@PathVariable Long post_Id,
                                                       @RequestBody PostUpdateRequestDto requestDto,
                                                       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        postService.updatePost(post_Id, requestDto, userDetails.getUser());
         return ResponseEntity.status(HttpStatus.OK).body(
                 HttpResponseDto.builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("게시물 수정이 완료되었습니다.")
+                        .data(postService.updatePost(post_Id, requestDto, userDetails.getUser()))
                         .build()
         );
     }

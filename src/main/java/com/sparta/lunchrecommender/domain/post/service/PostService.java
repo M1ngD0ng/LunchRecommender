@@ -40,7 +40,7 @@ public class PostService {
         return postList.map(post -> new PostResponseDto(post, post.getUser()));
     }
 
-    public void createPost(PostCreateRequestDto requestDto, User user) {
+    public PostResponseDto createPost(PostCreateRequestDto requestDto, User user) {
 
         Post post = new Post(requestDto);
 
@@ -48,11 +48,11 @@ public class PostService {
 
         Post savedPost = postRepository.save(post);
 
-        new PostResponseDto(savedPost, user);
+        return new PostResponseDto(savedPost, user);
     }
 
     @Transactional
-    public void updatePost(Long postId, PostUpdateRequestDto requestDto, User user) {
+    public PostResponseDto updatePost(Long postId, PostUpdateRequestDto requestDto, User user) {
 
         Post post = findPostById(postId);
 
@@ -62,7 +62,7 @@ public class PostService {
 
         post.update(requestDto);
 
-        new PostResponseDto(post, user);
+        return new PostResponseDto(post, user);
     }
 
     public void deletePost(Long postId, User user) {
