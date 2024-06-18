@@ -68,7 +68,6 @@ class PostServiceTest {
         userRepository.save(user);
     }
     @AfterAll
-    @Disabled
     public void clearData() {
         postRepository.deleteAll();
         userRepository.deleteAll();
